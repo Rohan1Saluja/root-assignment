@@ -20,10 +20,8 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ onNext, onBack }) => {
   };
 
   const formatPhoneNumber = (value: string) => {
-    // Remove all non-digits
     const phoneNumber = value.replace(/\D/g, "");
 
-    // Format as (XXX) XXX-XXXX
     if (phoneNumber.length >= 6) {
       return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
     } else if (phoneNumber.length >= 3) {

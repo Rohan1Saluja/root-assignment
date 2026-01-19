@@ -17,7 +17,6 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
-    // Focus first input on mount
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
@@ -34,11 +33,10 @@ const OTPVerification: React.FC<OTPVerificationProps> = ({
   }, [countdown]);
 
   const handleChange = (index: number, value: string) => {
-    // Only allow digits
     if (!/^\d*$/.test(value)) return;
 
     const newOtp = [...otp];
-    newOtp[index] = value.slice(-1); // Take only the last character
+    newOtp[index] = value.slice(-1);
     setOtp(newOtp);
 
     // Auto-focus next input

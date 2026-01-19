@@ -37,7 +37,6 @@ const Onboarding: React.FC = () => {
     setOnboardingData(updatedData);
 
     if (currentStep === totalSteps) {
-      // Final step completed - show modal with all data
       console.log("Onboarding completed with data:", updatedData);
       setShowModal(true);
     } else {
@@ -49,7 +48,6 @@ const Onboarding: React.FC = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     } else {
-      // Go back to previous page or home
       navigate(-1);
     }
   };
