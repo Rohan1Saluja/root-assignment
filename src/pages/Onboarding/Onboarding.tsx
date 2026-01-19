@@ -9,6 +9,7 @@ import {
 } from "./Steps";
 import ArtBoard from "../../assets/artboard.png";
 import { Button } from "../../components/ui";
+import { ShieldIcon } from "../../assets/icons";
 
 interface OnboardingData {
   accountType?: string;
@@ -118,7 +119,7 @@ const Onboarding: React.FC = () => {
 
   return (
     <>
-      <div className="min-h-[calc(100vh-60px)] flex flex-col lg:flex-row bg-primary-50 p-4 sm:p-8">
+      <div className="min-h-screen flex flex-col lg:flex-row bg-primary-50 p-4 sm:p-8">
         {/* Left Half: Static Image and Description */}
         <div className="flex-1 flex flex-col justify-between mb-8 lg:mb-0">
           <div className="px-8 flex flex-col gap-1">
@@ -160,68 +161,61 @@ const Onboarding: React.FC = () => {
 
       {/* Modal for showing all details */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto">
             <div className="text-center mb-6">
               <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                🎉 Welcome aboard!
+                You’re all set!
               </h2>
-              <p className="text-gray-600">
-                Your account has been created successfully
+              <p className="text-primary-600">
+                Here’s a quick summary of your account details
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6 space-y-4">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                Account Summary
-              </h3>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
+            <div className="bg-gray-50 rounded-3xl p-6 space-y-4">
+              <div className="grid grid-cols-1 gap-4">
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-medium text-primary-400">
                     Account Type
                   </label>
-                  <p className="text-gray-800 font-medium">
+                  <p className="text-primary-800 font-medium">
                     {formatAccountType(onboardingData.accountType)}
                   </p>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-medium text-primary-400">
                     Phone Number
                   </label>
-                  <p className="text-gray-800 font-medium">
+                  <p className="text-primary-800 font-medium">
                     {onboardingData.phoneNumber || "Not provided"}
                   </p>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-medium text-primary-400">
                     First Name
                   </label>
-                  <p className="text-gray-800 font-medium">
+                  <p className="text-primary-800 font-medium">
                     {onboardingData.firstName || "Not provided"}
                   </p>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-600">
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-medium text-primary-400">
                     Last Name
                   </label>
-                  <p className="text-gray-800 font-medium">
+                  <p className="text-primary-800 font-medium">
                     {onboardingData.lastName || "Not provided"}
                   </p>
                 </div>
-
-                <div className="sm:col-span-2">
-                  <label className="block text-sm font-medium text-gray-600">
-                    Verification Status
-                  </label>
-                  <p className="text-green-600 font-medium">
-                    ✓ Phone verified with OTP
-                  </p>
-                </div>
               </div>
+            </div>
+            <div className="flex items-center justify-center my-4 gap-1">
+              <ShieldIcon />
+              <p className="text-sm text-primary-500">
+                Your account is secured with bank-grade security
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 mt-8">

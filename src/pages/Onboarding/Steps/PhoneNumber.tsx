@@ -22,7 +22,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ onNext, onBack }) => {
   const formatPhoneNumber = (value: string) => {
     // Remove all non-digits
     const phoneNumber = value.replace(/\D/g, "");
-    
+
     // Format as (XXX) XXX-XXXX
     if (phoneNumber.length >= 6) {
       return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`;
@@ -41,7 +41,7 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ onNext, onBack }) => {
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-md p-8 sm:p-12 rounded-3xl shadow-xl w-full h-full border border-white/30 flex flex-col justify-center">
+    <div className="bg-white/95 backdrop-blur-md p-8 sm:p-12 rounded-3xl shadow-xl w-full h-full border border-white/30 flex flex-col">
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Enter your phone number
@@ -51,13 +51,13 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ onNext, onBack }) => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6 flex flex-col flex-1">
         <div className="space-y-4">
           <div className="flex gap-3">
             <select
               value={countryCode}
               onChange={(e) => setCountryCode(e.target.value)}
-              className="px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-24"
+              className="px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-800 focus:outline-none focus:border-secondary-500 w-24"
             >
               <option value="+1">🇺🇸 +1</option>
               <option value="+44">🇬🇧 +44</option>
@@ -65,13 +65,13 @@ const PhoneNumber: React.FC<PhoneNumberProps> = ({ onNext, onBack }) => {
               <option value="+81">🇯🇵 +81</option>
               <option value="+49">🇩🇪 +49</option>
             </select>
-            
+
             <input
               type="tel"
               value={formatPhoneNumber(phoneNumber)}
               onChange={handlePhoneChange}
               placeholder="(555) 123-4567"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none  focus:border-secondary-500 text-gray-800"
               required
             />
           </div>

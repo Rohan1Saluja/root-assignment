@@ -15,8 +15,8 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password.length < 8) {
-      alert("Password must be at least 8 characters long");
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long");
       return;
     }
 
@@ -29,7 +29,7 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
   };
 
   const passwordValidation = {
-    minLength: password.length >= 8,
+    minLength: password.length >= 6,
     hasNumber: /\d/.test(password),
     hasLetter: /[a-zA-Z]/.test(password),
     hasSpecial: /[!@#$%^&*(),.?":{}|<>]/.test(password),
@@ -39,7 +39,7 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
   const isFormValid = isPasswordValid && password === confirmPassword;
 
   return (
-    <div className="bg-white/95 backdrop-blur-md p-8 sm:p-12 rounded-3xl shadow-xl w-full h-full border border-white/30 flex flex-col justify-center">
+    <div className="bg-white/95 backdrop-blur-md p-8 sm:p-12 rounded-3xl shadow-xl w-full h-full border border-white/30 flex flex-col">
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">
           Create your password
@@ -49,14 +49,14 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-4">
+      <form onSubmit={handleSubmit} className="flex flex-col flex-1">
+        <div className="space-y-4 mb-8">
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm text-primary-300 mb-1"
             >
-              Password
+              Enter new Password
             </label>
             <div className="relative">
               <input
@@ -65,7 +65,7 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:outline-none  focus:border-secondary-500 text-primary-800"
                 required
               />
               <button
@@ -76,12 +76,15 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
                 {showPassword ? "👁️" : "👁️‍🗨️"}
               </button>
             </div>
+            <p className="text-xs text-primary-300 mt-1">
+              Must be atleast 6 characters
+            </p>
           </div>
 
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm text-primary-300 mb-1"
             >
               Confirm Password
             </label>
@@ -92,7 +95,7 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
-                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:outline-none  focus:border-secondary-500 text-primary-800"
                 required
               />
               <button
@@ -103,62 +106,24 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
                 {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
               </button>
             </div>
+            <p className="text-xs text-primary-300 mt-1">
+              Both passwords must match
+            </p>
           </div>
+
+          {/* Password Match Indicator */}
+          {confirmPassword && (
+            <div
+              className={`text-xs ${password === confirmPassword ? "text-green-600" : "text-red-500"}`}
+            >
+              {password === confirmPassword
+                ? "✓ Passwords match"
+                : "✗ Passwords do not match"}
+            </div>
+          )}
         </div>
 
-        {/* Password Requirements */}
-        <div className="space-y-2">
-          <p className="text-sm font-medium text-gray-700">
-            Password must contain:
-          </p>
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <div
-              className={`flex items-center ${passwordValidation.minLength ? "text-green-600" : "text-gray-500"}`}
-            >
-              <span className="mr-2">
-                {passwordValidation.minLength ? "✓" : "○"}
-              </span>
-              8+ characters
-            </div>
-            <div
-              className={`flex items-center ${passwordValidation.hasNumber ? "text-green-600" : "text-gray-500"}`}
-            >
-              <span className="mr-2">
-                {passwordValidation.hasNumber ? "✓" : "○"}
-              </span>
-              One number
-            </div>
-            <div
-              className={`flex items-center ${passwordValidation.hasLetter ? "text-green-600" : "text-gray-500"}`}
-            >
-              <span className="mr-2">
-                {passwordValidation.hasLetter ? "✓" : "○"}
-              </span>
-              One letter
-            </div>
-            <div
-              className={`flex items-center ${passwordValidation.hasSpecial ? "text-green-600" : "text-gray-500"}`}
-            >
-              <span className="mr-2">
-                {passwordValidation.hasSpecial ? "✓" : "○"}
-              </span>
-              Special character
-            </div>
-          </div>
-        </div>
-
-        {/* Password Match Indicator */}
-        {confirmPassword && (
-          <div
-            className={`text-xs ${password === confirmPassword ? "text-green-600" : "text-red-500"}`}
-          >
-            {password === confirmPassword
-              ? "✓ Passwords match"
-              : "✗ Passwords do not match"}
-          </div>
-        )}
-
-        <div className="flex items-center justify-center gap-4 mt-auto pt-8">
+        <div className="flex items-center justify-center gap-4 mt-auto">
           <Button type="button" variant="outline" onClick={onBack}>
             Back
           </Button>
