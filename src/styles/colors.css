@@ -1,0 +1,39 @@
+@theme {
+  /* === Primary scale === */
+  --color-primary-50: #f5f5f5;
+  --color-primary-100: #e5e5e5;
+  --color-primary-200: #d4d4d4;
+  --color-primary-300: #a3a3a3;
+  --color-primary-400: #737373;
+  --color-primary-500: #525252;
+  --color-primary-600: #404040;
+  --color-primary-700: #262626;
+  --color-primary-800: #171717;
+  --color-primary-900: #000000;
+
+  --color-primary: var(--color-primary-900);
+
+  /* === Secondary (blue) scale === */
+  --color-secondary-50: #EEEEFF;
+  --color-secondary-100: #CCDDFF;
+  --color-secondary-200: #99BBFF;
+  --color-secondary-300: #6699FF;
+  --color-secondary-400: #3377FF;
+  --color-secondary-500: #0054FD;
+  --color-secondary-600: #0044CC;
+  --color-secondary-700: #003399;
+  --color-secondary-800: #002266;
+  --color-secondary-900: #001133;
+
+  --color-secondary: var(--color-secondary-500);
+
+  /* === Accent Palette === */
+  --color-accent-skin: #fffaef;
+  --color-accent-sun: #ffe8c8;
+  --color-accent-wine: #450500;
+  --color-accent-coffee: #602100;
+
+  /* === Functional colors === */
+  --color-background: #ffffff;
+  --color-links: #2585fa;
+}
