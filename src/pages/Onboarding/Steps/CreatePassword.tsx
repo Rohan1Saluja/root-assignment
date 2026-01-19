@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../../components/ui";
+import { HidePasswordIcon, ShowPasswordIcon } from "../../../assets/icons";
 
 interface CreatePasswordProps {
   onNext: (data: { password: string }) => void;
@@ -73,7 +74,7 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
               >
-                {showPassword ? "👁️" : "👁️‍🗨️"}
+                {showPassword ? <ShowPasswordIcon /> : <HidePasswordIcon />}
               </button>
             </div>
             <p className="text-xs text-primary-300 mt-1">
@@ -103,7 +104,11 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
               >
-                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
+                {showConfirmPassword ? (
+                  <ShowPasswordIcon />
+                ) : (
+                  <HidePasswordIcon />
+                )}
               </button>
             </div>
             <p className="text-xs text-primary-300 mt-1">
