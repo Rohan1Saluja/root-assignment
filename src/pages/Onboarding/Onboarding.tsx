@@ -1,0 +1,239 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Intro,
+  PhoneNumber,
+  OTPVerification,
+  UserDetails,
+  CreatePassword,
+} from "./Steps";
+import ArtBoard from "../../assets/artboard.png";
+import { Button } from "../../components/ui";
+
+interface OnboardingData {
+  accountType?: string;
+  phoneNumber?: string;
+  otp?: string;
+  firstName?: string;
+  lastName?: string;
+  password?: string;
+}
+
+const Onboarding: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [onboardingData, setOnboardingData] = useState<OnboardingData>({});
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  const totalSteps = 5;
+
+  const handleNext = (stepData: any) => {
+    const updatedData = { ...onboardingData, ...stepData };
+    setOnboardingData(updatedData);
+
+    if (currentStep === totalSteps) {
+      // Final step completed - show modal with all data
+      console.log("Onboarding completed with data:", updatedData);
+      setShowModal(true);
+    } else {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    } else {
+      // Go back to previous page or home
+      navigate(-1);
+    }
+  };
+
+  const getStepTitle = () => {
+    switch (currentStep) {
+      case 1:
+        return "Create your account";
+      case 2:
+        return "Verify your phone";
+      case 3:
+        return "Enter verification code";
+      case 4:
+        return "Personal information";
+      case 5:
+        return "Create password";
+      default:
+        return "Create your account";
+    }
+  };
+
+  const getStepDescription = () => {
+    switch (currentStep) {
+      case 1:
+        return "Follow the steps to create your account";
+      case 2:
+        return "We need to verify your phone number";
+      case 3:
+        return "Enter the code we sent to your phone";
+      case 4:
+        return "Tell us a bit about yourself";
+      case 5:
+        return "Choose a secure password for your account";
+      default:
+        return "Follow the steps to create your account";
+    }
+  };
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 1:
+        return <Intro onNext={handleNext} onBack={handleBack} />;
+      case 2:
+        return <PhoneNumber onNext={handleNext} onBack={handleBack} />;
+      case 3:
+        return (
+          <OTPVerification
+            onNext={handleNext}
+            onBack={handleBack}
+            phoneNumber={onboardingData.phoneNumber}
+          />
+        );
+      case 4:
+        return <UserDetails onNext={handleNext} onBack={handleBack} />;
+      case 5:
+        return <CreatePassword onNext={handleNext} onBack={handleBack} />;
+      default:
+        return <Intro onNext={handleNext} onBack={handleBack} />;
+    }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    navigate("/home");
+  };
+
+  const formatAccountType = (type?: string) => {
+    if (!type) return "Not selected";
+    return type.charAt(0).toUpperCase() + type.slice(1);
+  };
+
+  return (
+    <>
+      <div className="min-h-[calc(100vh-60px)] flex flex-col lg:flex-row bg-primary-50 p-4 sm:p-8">
+        {/* Left Half: Static Image and Description */}
+        <div className="flex-1 flex flex-col justify-between mb-8 lg:mb-0">
+          <div className="px-8 flex flex-col gap-1">
+            <p className="text-lg font-light text-primary-600">
+              Let's get started
+            </p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">
+              {getStepTitle()}
+            </h1>
+            <h6 className="text-sm text-primary-500">{getStepDescription()}</h6>
+
+            {/* Step Progress Indicator */}
+            <div className="flex items-center space-x-2 mt-4">
+              {Array.from({ length: totalSteps }, (_, index) => (
+                <div
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index + 1 <= currentStep ? "bg-primary-600" : "bg-gray-300"
+                  }`}
+                />
+              ))}
+              <span className="text-xs text-primary-500 ml-2">
+                Step {currentStep} of {totalSteps}
+              </span>
+            </div>
+          </div>
+          <img
+            src={ArtBoard}
+            alt="Onboarding"
+            className="w-[90%] rounded-lg mb-4 self-end"
+          />
+        </div>
+
+        {/* Right Half: Multistep Form */}
+        <div className="flex-1 flex justify-center items-center">
+          {renderCurrentStep()}
+        </div>
+      </div>
+
+      {/* Modal for showing all details */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="text-center mb-6">
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                🎉 Welcome aboard!
+              </h2>
+              <p className="text-gray-600">
+                Your account has been created successfully
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-6 space-y-4">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                Account Summary
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-600">
+                    Account Type
+                  </label>
+                  <p className="text-gray-800 font-medium">
+                    {formatAccountType(onboardingData.accountType)}
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-600">
+                    Phone Number
+                  </label>
+                  <p className="text-gray-800 font-medium">
+                    {onboardingData.phoneNumber || "Not provided"}
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-600">
+                    First Name
+                  </label>
+                  <p className="text-gray-800 font-medium">
+                    {onboardingData.firstName || "Not provided"}
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-600">
+                    Last Name
+                  </label>
+                  <p className="text-gray-800 font-medium">
+                    {onboardingData.lastName || "Not provided"}
+                  </p>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-sm font-medium text-gray-600">
+                    Verification Status
+                  </label>
+                  <p className="text-green-600 font-medium">
+                    ✓ Phone verified with OTP
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 mt-8">
+              <Button onClick={handleModalClose} className="flex-1">
+                Continue to Dashboard
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Onboarding;
