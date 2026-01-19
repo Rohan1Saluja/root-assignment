@@ -27,6 +27,10 @@ const Onboarding: React.FC = () => {
   const navigate = useNavigate();
 
   const totalSteps = 5;
+  const progress =
+    currentStep === totalSteps
+      ? 80
+      : ((currentStep - 1) / (totalSteps - 1)) * 80;
 
   const handleNext = (stepData: any) => {
     const updatedData = { ...onboardingData, ...stepData };
@@ -120,7 +124,8 @@ const Onboarding: React.FC = () => {
   return (
     <>
       <div className="min-h-screen flex flex-col lg:flex-row bg-primary-50 p-4 sm:p-8">
-        {/* Left Half: Static Image and Description */}
+        {/* ---------------------------------------------- */}
+
         <div className="flex-1 flex flex-col justify-between mb-8 lg:mb-0">
           <div className="px-8 flex flex-col gap-1">
             <p className="text-lg font-light text-primary-600">
@@ -130,21 +135,6 @@ const Onboarding: React.FC = () => {
               {getStepTitle()}
             </h1>
             <h6 className="text-sm text-primary-500">{getStepDescription()}</h6>
-
-            {/* Step Progress Indicator */}
-            <div className="flex items-center space-x-2 mt-4">
-              {Array.from({ length: totalSteps }, (_, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    index + 1 <= currentStep ? "bg-primary-600" : "bg-gray-300"
-                  }`}
-                />
-              ))}
-              <span className="text-xs text-primary-500 ml-2">
-                Step {currentStep} of {totalSteps}
-              </span>
-            </div>
           </div>
           <img
             src={ArtBoard}
@@ -153,13 +143,24 @@ const Onboarding: React.FC = () => {
           />
         </div>
 
-        {/* Right Half: Multistep Form */}
-        <div className="flex-1 flex justify-center items-center">
-          {renderCurrentStep()}
+        {/* ---------------------------------------------- */}
+        <div className="flex-1 flex flex-col">
+          <div className="px-12 mt-4 mb-1">
+            {currentStep !== 1 && (
+              <div className="w-full bg-gray-300 h-1 rounded-full">
+                <div
+                  className="bg-secondary-500 h-1 rounded-full transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+            )}
+          </div>
+          <div className="flex justify-center items-center flex-1">
+            {renderCurrentStep()}
+          </div>
         </div>
       </div>
 
-      {/* Modal for showing all details */}
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto">
