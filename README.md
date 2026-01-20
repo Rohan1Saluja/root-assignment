@@ -1,61 +1,98 @@
-# React Router Application
+# Onboarding App
 
-A clean, modern React application built with TypeScript, Vite, and React Router. This application features a structured codebase with two main pages: Home and Onboarding.
+A modern, user-friendly React application designed to streamline the user onboarding process. Built with TypeScript and powered by Vite, this app provides a seamless multi-step registration flow that guides users through phone verification, OTP validation, personal details collection, and secure password creation.
 
 ## Features
 
-- 🚀 **React 18** with TypeScript support
-- 📱 **Responsive Design** with modern CSS
-- 🛣️ **React Router** for client-side routing
-- 🎨 **Modern UI** with glassmorphism effects
-- 📁 **Organized Structure** with separate components and pages
-- ⚡ **Vite** for fast development and building
+- **📱 Multi-Step Onboarding Flow**: Intuitive 5-step process including introduction, phone number input, OTP verification, user details, and password creation
+- **Secure Authentication**: Phone number verification with OTP for enhanced security
+- **Modern UI/UX**: Clean, responsive design with smooth animations and glassmorphism effects
+- **Fast Performance**: Built with Vite for lightning-fast development and optimized production builds
+- **Mobile-First**: Fully responsive design that works seamlessly across all devices
+- **Type-Safe**: Full TypeScript support for robust, maintainable code
+- **Progressive Enhancement**: Smooth transitions and state management throughout the onboarding journey
 
-## Project Structure
+## Tech Stack
+
+- **Frontend Framework**: React 19 with modern hooks
+- **Language**: TypeScript for type safety
+- **Build Tool**: Vite for fast development and building
+- **Routing**: React Router DOM v7 for client-side navigation
+- **Styling**: Tailwind CSS v4 for utility-first CSS
+- **Icons**: Custom SVG icon components
+- **Linting**: ESLint with TypeScript support
+- **Package Manager**: npm
+
+## 📁 Project Structure
 
 ```
 src/
-├── components/          # Reusable UI components
+├── assets/
+│   ├── icons/           # Custom SVG icon components
+│   │   ├── bag.tsx
+│   │   ├── checkbox.tsx
+│   │   ├── hide-password.tsx
+│   │   ├── shield.tsx
+│   │   ├── show-password.tsx
+│   │   ├── user.tsx
+│   │   └── index.ts     # Icon exports
+│   └── artboard.png     # Onboarding illustration
+├── components/
 │   ├── Navigation.tsx   # Main navigation component
-│   └── Navigation.css
-├── pages/              # Application pages
-│   ├── Home.tsx        # Home page component
-│   ├── Home.css
-│   ├── Onboarding.tsx       # Onboarding page component
-│   ├── Onboarding.css
-│   └── index.ts        # Export barrel
-├── styles/             # Global styles
-│   └── App.css         # Main app styles
-├── assets/             # Static assets
-├── App.tsx             # Main app component with routing
-├── main.tsx           # Application entry point
-└── index.css          # Global CSS styles
+│   └── ui/
+│       ├── Button.tsx   # Reusable button component
+│       └── index.ts     # UI component exports
+├── pages/
+│   ├── Home.tsx         # Landing page after onboarding
+│   ├── index.ts         # Page exports
+│   └── Onboarding/
+│       ├── Onboarding.tsx    # Main onboarding container
+│       ├── index.ts          # Onboarding exports
+│       └── Steps/             # Individual onboarding steps
+│           ├── Intro.tsx
+│           ├── PhoneNumber.tsx
+│           ├── OTPVerification.tsx
+│           ├── UserDetails.tsx
+│           ├── CreatePassword.tsx
+│           └── index.ts
+├── styles/
+│   └── colors.css       # Color scheme definitions
+├── App.tsx              # Main app with routing
+├── main.tsx             # Application entry point
+└── index.css            # Global styles and Tailwind imports
 ```
-
-## Available Routes
-
-- `/` - Redirects to onboarding page
-- `/onboarding` - User onboarding page
-- `/home` - Main application page
-- `*` - Catch-all route redirects to onboarding
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
 ### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd root-assignment
+```
+
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Development
+3. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-This will start the development server on `http://localhost:5173`
+The application will be available at `http://localhost:5173`
 
-### Building for Production
+### Build for Production
 
 ```bash
 npm run build
@@ -67,70 +104,60 @@ npm run build
 npm run preview
 ```
 
+### Code Quality
+
+Run linting to check code quality:
+
+```bash
+npm run lint
+```
+
 ## Usage
 
-1. Start the application and you'll be redirected to the onboarding page
-2. Enter any email and password to proceed to the home page
-3. Use the navigation bar to switch between pages
-4. The application features responsive design that works on all devices
+1. **Launch the App**: Start the development server and navigate to the application
+2. **Onboarding Flow**:
+   - **Step 1**: Introduction screen with app overview
+   - **Step 2**: Phone number input with validation
+   - **Step 3**: OTP verification for security
+   - **Step 4**: Personal details collection (first name, last name)
+   - **Step 5**: Secure password creation
+3. **Completion**: After successful onboarding, users are redirected to the home page
+4. **Navigation**: Use the navigation bar to move between pages
 
-## Technologies Used
+## Future Scope
 
-- **React 18** - Modern React with hooks
-- **TypeScript** - Type-safe JavaScript
-- **React Router** - Client-side routing
-- **Vite** - Fast build tool and dev server
-- **Modern CSS** - Flexbox, Grid, and CSS custom properties
+### Planned Enhancements
 
-## Customization
+- **Backend Integration**: Connect with RESTful APIs for user data persistence and OTP services
+- **Email Verification**: Add email verification as an alternative to phone verification
+- **Multi-Language Support**: Internationalization (i18n) for global user base
+- **Dark Mode**: Theme switching capability for better user experience
+- **Analytics Integration**: User journey tracking and conversion analytics
+- **Progressive Web App (PWA)**: Offline functionality and app-like experience
+- **Push Notifications**: Real-time notifications for important updates
+- **Advanced Security**: Biometric authentication and two-factor authentication options
+- **Social Login**: Integration with Google, Facebook, and other social platforms
+- **User Dashboard**: Personalized dashboard with user profile management
+- **Admin Panel**: Administrative interface for user management and analytics
+- **Search & Discovery**: Advanced search features and content discovery
+- **Mobile App**: Native mobile applications for iOS and Android
+- **AI-Powered Features**: Smart suggestions and personalized onboarding experiences
 
-The application uses a modular CSS approach where each component has its own stylesheet. You can easily customize the design by modifying the respective CSS files:
+### Technical Improvements
 
-- Global styles: `src/index.css` and `src/styles/App.css`
-- Component styles: Individual `.css` files next to each component
-- Color scheme and themes can be adjusted in the CSS custom properties
-  tseslint.configs.stylisticTypeChecked,
+- **State Management**: Implementation of Redux Toolkit or Zustand for complex state handling
+- **Testing Suite**: Comprehensive unit and integration tests with Jest and React Testing Library
+- **Performance Optimization**: Code splitting, lazy loading, and bundle analysis
+- **Accessibility**: WCAG compliance and screen reader support
+- **Error Handling**: Robust error boundaries and user-friendly error messages
+- **Caching Strategy**: Intelligent caching for improved performance
+- **Microservices Architecture**: Modular backend services for scalability
 
-        // Other configs...
-      ],
-      languageOptions: {
-        parserOptions: {
-          project: ['./tsconfig.node.json', './tsconfig.app.json'],
-          tsconfigRootDir: import.meta.dirname,
-        },
-        // other options...
-      },
+### Development Guidelines
 
-  },
-  ])
+1. Follow the existing code style and TypeScript best practices
+2. Write meaningful commit messages
+3. Test your changes thoroughly
+4. Update documentation as needed
 
-````
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-````
+---
