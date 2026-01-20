@@ -4,7 +4,7 @@ A modern, user-friendly React application designed to streamline the user onboar
 
 ## Features
 
-- **📱 Multi-Step Onboarding Flow**: Intuitive 5-step process including introduction, phone number input, OTP verification, user details, and password creation
+- **Multi-Step Onboarding Flow**: Intuitive 5-step process including introduction, phone number input, OTP verification, user details, and password creation
 - **Secure Authentication**: Phone number verification with OTP for enhanced security
 - **Modern UI/UX**: Clean, responsive design with smooth animations and glassmorphism effects
 - **Fast Performance**: Built with Vite for lightning-fast development and optimized production builds
